@@ -145,6 +145,13 @@ body {
   z-index: 1;
 }
 
+.game__endgame button {
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .pressAnimation {
   -webkit-animation: pressButton 0.5s ease;
           animation: pressButton 0.5s ease;
