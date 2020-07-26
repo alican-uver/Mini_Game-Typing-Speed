@@ -124,7 +124,7 @@ body {
   left: 20px;
 }
 
-.game__end-game {
+.game__endgame {
   background-color: inherit;
   display: none;
   -webkit-box-align: center;
