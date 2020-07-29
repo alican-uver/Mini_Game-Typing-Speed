@@ -26,7 +26,11 @@ const words = [
     "admit",
     "drag",
     "loving",
-    "tense"
+    "tense",
+    "love",
+    "student",
+    "teaching",
+    "software",
 ]
 
 // init word
