@@ -1,3 +1,6 @@
+import '../style/style.scss';
+import randomWords from 'random-words';
+
 // Select Elements
 const word = document.getElementById("word");
 const text = document.getElementById("text");
@@ -9,32 +12,8 @@ const settings = document.getElementById("settings");
 const settingsForm = document.getElementById("settings-form");
 const difficultySelect = document.getElementById("difficulty");
 
-// List of words for game
-const words = [
-    "airplane",
-    "ball",
-    "juice",
-    "cake",
-    "bad",
-    "north",
-    "warlike",
-    "dependent",
-    "steer",
-    "quince",
-    "eight",
-    "feeble",
-    "admit",
-    "drag",
-    "loving",
-    "tense",
-    "love",
-    "student",
-    "teaching",
-    "software",
-]
-
 // init word
-let randomWord;
+let randomWord = randomWords();
 
 // init score
 let score = 0;
@@ -49,25 +28,14 @@ let difficulty = localStorage.getItem("difficulty") !== null ?
 // set difficulty select value 
 difficultySelect.value = difficulty;
 
-// focus on text on start
-text.focus()
-
 // start counting down
 const timeInterval = setInterval(updateTime, 1000);
 
-addWordToDOM();
-
-
 //!  ALL FUNCTIONS  !//
-// random word 
-function getRandomWord() {
-    return words[Math.floor(Math.random() * words.length)];
-}
 
 // add word to DOM
 function addWordToDOM() {
-    randomWord = getRandomWord();
-    word.innerHTML = randomWord
+    word.innerHTML = randomWord;
 }
 
 // update score 
@@ -100,6 +68,7 @@ function gameOver() {
 text.addEventListener("input", e => {
     const insertedText = e.target.value.trim();
     if (insertedText === randomWord) {
+        randomWord = randomWords();
         addWordToDOM();
         updateScore();
 
@@ -110,12 +79,18 @@ text.addEventListener("input", e => {
         switch (difficulty) {
             case "easy":
                 time += 4;
+                randomWord = randomWords().toString();
+                addWordToDOM();
                 break;
             case "medium":
-                time += 3;
+                time += 5;
+                randomWord = randomWords({exactly:1, wordsPerString:2}).toString();
+                addWordToDOM();
                 break;
             case "hard":
-                time += 2;
+                time += 6;
+                randomWord = randomWords({exactly:1, wordsPerString:3}).toString();
+                addWordToDOM();
                 break;
             default:
                 time += 5;
@@ -143,4 +118,9 @@ settingsBtn.addEventListener("click", () => {
     settingsBtn.addEventListener("animationend", () => {
         settingsBtn.classList.remove("pressAnimation")
     })
+})
+
+document.addEventListener("DOMContentLoaded", () => {
+    addWordToDOM();
+    text.focus()
 })
